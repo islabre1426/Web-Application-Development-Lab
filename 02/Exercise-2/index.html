@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>HCMIU Entry Survey</title>
+</head>
+<body>
+    <header>
+        <img src="./HCMIU-Logo.png" alt="HCMIU Logo">
+    </header>
+    <main>
+        <h1>Survey</h1>
+        <p>If you have a moment, we'd appreciate it if you would fill out this survey.</p>
+
+        <form action="">
+            <h2>Your information</h2>
+            <table>
+                <tr>
+                    <th>
+                        <label for="first-name">First name</label>
+                    </th>
+                    <td>
+                        <input type="text" name="first-name" id="first-name">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="last-name">Last name</label>
+                    </th>
+                    <td>
+                        <input type="text" name="last-name" id="last-name">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="email">Email</label>
+                    </th>
+                    <td>
+                        <input type="email" name="email" id="email">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="date-of-birth">Date of birth</label>
+                    </th>
+                    <td>
+                        <input type="date" name="date-of-birth" id="date-of-birth">
+                    </td>
+                </tr>
+            </table>
+
+            <h2>How did you hear about us?</h2>
+            <input type="radio" name="hear" id="search-engine" value="search-engine">
+            <label for="search-engine">Search engine</label>
+            
+            <input type="radio" name="hear" id="word-of-mouth" value="word-of-mouth"> 
+            <label for="word-of-mouth">Word of mouth</label>
+
+            <input type="radio" name="hear" id="social-media" value="social-media">
+            <label for="social-media">Social media</label>
+
+            <input type="radio" name="hear" id="other" value="other">
+            <label for="other">Other</label>
+
+            <h2>Would you like to receive announcements about new CDs and special offers?</h2>
+            <input type="checkbox" name="yes" id="yes">
+            <label for="yes">YES, I'd like that.</label> <br>
+            <input type="checkbox" name="yes-send-email" id="yes-send-email">
+            <label for="yes-send-email">YES, Please send me email announcements.</label>
+            <br>
+
+            <label for="contact">Please contact me by:</label>
+            <select name="contact" id="contact">
+                <option value="email-or-postal-mail">Email or postal mail</option>
+                <option value="email-only">Email only</option>
+                <option value="postal-mail-only">Postal mail only</option>
+            </select>
+            <br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </main>
+</body>
+</html>
