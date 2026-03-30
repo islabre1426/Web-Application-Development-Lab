@@ -1,0 +1,23 @@
+body {
+    font: 100%/1.5 sans-serif;
+    padding: 0.5em;
+    margin: 0 auto;
+    max-width: 40em;
+}
+
+table, td {
+    border: 1px solid;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead {
+    font-weight: bold;
+}
+
+td {
+    padding: 0.25em;
+}
