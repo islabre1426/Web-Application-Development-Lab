@@ -1,0 +1,167 @@
+:root {
+    --header-color: maroon;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #fffdf0;
+
+    margin: 0;
+
+    border: 3px solid maroon;
+}
+
+.banner {
+    display: flex;
+
+    background: linear-gradient(60deg, #f6c47c, white, #f6c47c);
+
+    padding: 2em 2em 0;
+}
+
+.banner img {
+    width: 6em;
+}
+
+.banner .title {
+    margin-left: 1em;
+}
+
+.banner .title h1, .banner .nth-year {
+    text-shadow: 1px 1px 2px black;
+}
+
+.banner .title h1 {
+    margin: 0;
+    color: var(--header-color);
+}
+
+.banner .subtitle {
+    font-size: 1.5em;
+}
+
+.banner .nth-year {
+    color: var(--header-color);
+}
+
+header nav {
+    background-color: var(--header-color);
+}
+
+header nav > ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+
+    list-style-type: none;
+
+    text-align: center;
+}
+
+header nav li {
+    width: 100%;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+
+    padding: 1em 0;
+    font-size: 1.25em;
+
+    display: block;
+}
+
+header nav a:hover {
+    font-style: italic;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown {
+    list-style-type: none;
+    padding: 0;
+
+    position: absolute;
+
+    background-color: var(--header-color);
+    width: 100%;
+
+    display: none;
+}
+
+.dropdown-container a:hover ~ .dropdown, .dropdown:hover {
+    display: block;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+
+    margin: 1em 1.5em;
+}
+
+h2, p {
+    margin: 0.25em 0;
+}
+
+h2 {
+    color: var(--header-color);
+}
+
+.sidebar {
+    flex: 1;
+}
+
+main .main {
+    flex: 2;
+}
+
+.guest-speaker {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 2em;
+}
+
+.guest-speaker h3 {
+    margin: 0;
+}
+
+.guest-speaker img {
+    width: 5em;
+}
+
+.speaker-of-month > h2 {
+    color: initial;
+}
+
+.speaker-content {
+    border: solid maroon;
+    border-width: 3px 0;
+    padding-bottom: 1em;
+}
+
+.speaker-content .info {
+    display: flex;
+}
+
+.ticket-packages {
+    margin: 0;
+    list-style-type: circle;
+}
+
+footer {
+    background-color: var(--header-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0.5em 0;
+
+    color: white;
+}
