@@ -1,7 +1,7 @@
 <%-- 
-    Document   : process_add
-    Created on : Apr 22, 2026, 3:13:22 PM
-    Author     : islabre
+    Document   : process_edit
+    Created on : Apr 27, 2026, 8:06:38 PM
+    Author     : Islabre
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,10 +10,11 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Student Adding Process</title>
+    <title>Student Editing Process</title>
 </head>
 <body>
 <%
+    String id = request.getParameter("id");
     String studentCode = request.getParameter("student-code");
     String fullName = request.getParameter("full-name");
     String email = request.getParameter("email");
@@ -22,19 +23,20 @@
     // Missing required fields
     if (studentCode == null || studentCode.trim().isEmpty() ||
         fullName == null || fullName.trim().isEmpty()) {
-        response.sendRedirect("add_student.jsp?message=Error: Required fields (Full Name, Student Code) are missing.");
+        response.sendRedirect("edit_student.jsp?message=Error: Required fields (Full Name, Student Code) are missing.");
         return;
     }
     
+    // Invalid Student Code
     if (!studentCode.matches("[A-Z]{2}[0-9]{3,}")) {
-        response.sendRedirect("add_student.jsp?message=Error: Invalid Student Code format");
+        response.sendRedirect("edit_student.jsp?message=Error: Invalid Student Code format");
         return;
     }
     
     if (email != null && !email.isEmpty()) {
         if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             // Invalid email format
-            response.sendRedirect("add_student.jsp?message=Error: Invalid email format");
+            response.sendRedirect("edit_student.jsp?message=Error: Invalid email format");
             return;
         }
     }
@@ -53,33 +55,29 @@
         );
 
         // Insert info into database (prepare statement first to prevent SQL Injection Attack)
-        String sql = "INSERT INTO students (student_code, full_name, email, major) VALUES (?, ?, ?, ?)";
+        String sql = "UPDATE students SET student_code = ?, full_name = ?, email = ?, major = ? WHERE id = ?";
         
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, studentCode);
         pstmt.setString(2, fullName);
         pstmt.setString(3, email);
         pstmt.setString(4, major);
+        pstmt.setString(5, id);
         
         int rowsAffected = pstmt.executeUpdate();
         
         if (rowsAffected > 0) {
-            response.sendRedirect("list_students.jsp?message=Student added successfully");
+            response.sendRedirect("list_students.jsp?message=Student updated successfully");
         } else {
-            response.sendRedirect("add_student.jsp?message=Error: Failed to add student");
+            response.sendRedirect("edit_student.jsp?message=Error: Failed to update student");
         }
         
         // Handle errors
         } catch (ClassNotFoundException e) {
-            response.sendRedirect("add_student.jsp?message=Error: JDBC Driver not found.");
+            response.sendRedirect("edit_student.jsp?message=Error: JDBC Driver not found.");
             e.printStackTrace();
         } catch (SQLException e) {
-            String errorMsg = e.getMessage();
-            if (errorMsg.contains("Duplicate entry")) {
-                response.sendRedirect("add_student.jsp?message=Error: Student code already exists");
-            } else {
-                response.sendRedirect("add_student.jsp?message=Error: Database error");
-            }
+            response.sendRedirect("edit_student.jsp?message=Error: Database error: " + e.getMessage());
             e.printStackTrace();
             
         // Close database connection

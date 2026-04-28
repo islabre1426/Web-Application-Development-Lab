@@ -32,6 +32,24 @@
         </div>
     <% } %>
     
+    <form method="GET" action="list_students.jsp">
+        Search student: <input type="text" name="keyword" id="keyword" placeholder="Search by name or code...">
+        <button type="submit">Search</button>
+        <a href="list_students.jsp">
+            <button>Clear</button>
+        </a>
+    </form> 
+    
+    <a href="add_student.jsp">
+        <button>Add Student</button>
+    </a>
+    
+    <% if (request.getParameter("keyword") != null && !request.getParameter("keyword").isEmpty()) { %>
+        <p>
+            Search result for "<%= request.getParameter("keyword") %>":
+        </p>
+    <% } %>
+    
     <table>
         <thead>
             <td>ID</td>
@@ -44,8 +62,9 @@
         <tbody>
         <%
             Connection conn = null;
-            Statement stmt = null;
+            PreparedStatement pstmt = null;
             ResultSet rs = null;
+            String sql = "";
             
             try {
                 // Connect to database
@@ -57,10 +76,21 @@
                     "Q@jaP*96T8xY#2^7&3@7"
                 );
                 
-                // Query for students
-                stmt = conn.createStatement();
-                String sql = "SELECT * FROM students";
-                rs = stmt.executeQuery(sql);
+                String keyword = request.getParameter("keyword");
+                
+                if (keyword != null && !keyword.isEmpty()) {
+                    // Retrieve students by keyword if exists
+                    sql = "SELECT * FROM students WHERE full_name LIKE ? OR student_code LIKE ?";
+                    pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1, "%" + keyword + "%");
+                    pstmt.setString(2, "%" + keyword + "%");
+                } else {
+                    // Retrieve all students
+                    sql = "SELECT * FROM students";
+                    pstmt = conn.prepareStatement(sql);
+                }
+                
+                rs = pstmt.executeQuery();
                 
                 // Get info
                 while (rs.next()) {
@@ -78,6 +108,11 @@
                         <td><%= email != null ? email : "N/A" %></td>
                         <td><%= major != null ? major : "N/A" %></td>
                         <td><%= createdAt %></td>
+                        <td>
+                            <a href="edit_student.jsp?id=<%= id %>">
+                                <button>Edit</button>
+                            </a>
+                        </td>
                     </tr>
         <%
                 }
@@ -92,7 +127,7 @@
             } finally {
                 try {
                     if (rs != null) rs.close();
-                    if (stmt != null) stmt.close();
+                    if (pstmt != null) pstmt.close();
                     if (conn != null) conn.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
